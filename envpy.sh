@@ -2,41 +2,73 @@
 
 #directory where the python environment will be 
 dirEnv=~/pythonEnvironments
-if[ ! -d $dirEnv ]; then
+if [ ! -d $dirEnv ]; then
     mkdir $dirEnv
 fi
 
+showHelp(){
+  if $help; then
+      echo "-s --> show all virtual environments"
+      echo "-m [name] --> make a new virtual environment"
+      echo "-r [NAME] --> remove a virtual environment"
+      echo "-v [NAME] --> view all libraries installed"
+      echo "-a [NAME] --> activate a virtual environment *you need to use source envpy -a [NAME] *"
+  fi
+}
 showAllDirectories(){
     ls $dirEnv
 }
 
 makeVirtualEnvironment(){
     local name=$1
-
+    echo "Creating the environment ..." 
     python -m venv $dirEnv/$name
+    echo "Creation finished"
 }
 
 removeVirtualEnvironment(){
-    local removeName=$1
-    if[ -d $dirEnv/$removeName]; then
+    existsFile
+    rm -rf $dirEnv/$1
+    echo "Remove successful" 
+}
+ 
+existsFile(){ 
+    if [ -d $dirEnv/$removeName ]; then
         rm -rf 
     else
         echo "The directory does not exists"
+        exit 1
     fi
 }
 
-while getopts ":sm:" opt; do
+showLibrariesInstalled(){
+    existsFile
+    source $dirEnv/$1/bin/activate
+    pip list
+    deactivate
+}
+
+activateEnvironment(){
+  existsFile
+  source $dirEnv/$1/bin/activate
+}
+
+while getopts ":sm:r:v:a:" opt; do
     case $opt in
         s)
           showAllDirectories
           ;;
         m)
-          name=$OPTARG
-          makeVirtualEnvironment "$name"
+          makeVirtualEnvironment "$OPTARG"
           ;;
         r)
-          removeEnv=$OPTARG
-          removeVirtualEnvironment "$removeEnv"   
+          removeVirtualEnvironment "$OPTARG"   
+          ;;
+        v)
+          showLibrariesInstalled "$OPTARG"
+          ;;
+        a)
+          activateEnvironment "$OPTARG"
           ;;
         \?)
            echo "Not suppoorted option -$OPTARG" >&2  
@@ -50,8 +82,3 @@ while getopts ":sm:" opt; do
 done
 
 
-#if $help; then
-#    echo "-s --> show all virtual environments"
-#    echo "-m [name] --> make a new virtual environment"
-#    echo "-r --> remove a virtual environment"
-#fi
