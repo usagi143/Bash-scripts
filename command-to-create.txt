@@ -1,7 +1,16 @@
-#Choose which command want to creat
-#the # symbol works as a comment
-#example --> envpy.sh this will make a command // #envpy.sh this will not beacuse it has the # a the beggining
-#the command will be made in /usr/local/bin/ --> make sure to add this directory to the PATH if it is not there
+envpy.sh
+
+la.sh
+dsfsd.sh
+
+sdadsa.sh
 
 
-env.py
+
+
+
+
+
+
+
+
