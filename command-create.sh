@@ -7,6 +7,7 @@ namesDir=()
 
 showHelp(){
     echo "Creates based on the command-to-create.txt file"
+    echo "This script must be execute in sudo for it to work correctly"
     echo "-m --> make a command of every uncommented line"
     echo "-----------------------------------------------"
     echo "--FILE RULES--"
