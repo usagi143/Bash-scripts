@@ -7,13 +7,11 @@ if [ ! -d $dirEnv ]; then
 fi
 
 showHelp(){
-  if $help; then
-      echo "-s --> show all virtual environments"
-      echo "-m [name] --> make a new virtual environment"
-      echo "-r [NAME] --> remove a virtual environment"
-      echo "-v [NAME] --> view all libraries installed"
-      echo "-a [NAME] --> activate a virtual environment *you need to use source envpy -a [NAME] *"
-  fi
+    echo "-s --> show all virtual environments"
+    echo "-m [name] --> make a new virtual environment"
+    echo "-r [NAME] --> remove a virtual environment"
+    echo "-v [NAME] --> view all libraries installed"
+    echo "-a [NAME] --> activate a virtual environment *you need to use source envpy -a [NAME]*"
 }
 showAllDirectories(){
     ls $dirEnv
@@ -53,7 +51,7 @@ activateEnvironment(){
   source $dirEnv/$1/bin/activate
 }
 
-while getopts ":sm:r:v:a:" opt; do
+while getopts ":sm:r:v:a:h" opt; do
     case $opt in
         s)
           showAllDirectories
@@ -69,6 +67,9 @@ while getopts ":sm:r:v:a:" opt; do
           ;;
         a)
           activateEnvironment "$OPTARG"
+          ;;
+        h)
+          showHelp 
           ;;
         \?)
            echo "Not suppoorted option -$OPTARG" >&2  
