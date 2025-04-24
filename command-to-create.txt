@@ -1,11 +1,5 @@
 envpy.sh
 
-la.sh
-dsfsd.sh
-
-sdadsa.sh
-
-
 
 
 
